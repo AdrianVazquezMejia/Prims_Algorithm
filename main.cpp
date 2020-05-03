@@ -12,8 +12,10 @@
 #include "header/graph.h"
 using namespace std;
 int main(){
-	cout<<"Hello World";
-
+	int n = 10;
+	graph g(n, false);
+	g.MonteCarlo(0.5,1,2);
+	g.print_graph();
 	return 0;
 }
 

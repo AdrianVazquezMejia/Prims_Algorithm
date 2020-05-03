@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "../header/queue.h"
 #include <iostream>
+#include <time.h>
 double  prob(void){
 	double result = rand();
 	result= result/RAND_MAX;
@@ -37,6 +38,7 @@ int graph::genCost(int initialCost,int  Range){
 
 void graph::MonteCarlo(double density, int initialCost, int Range){
 	int weight=0;
+	srand(time(0));
 	for(int i=0; i< graph::List->nvertices;++i)
 		for(int j = i+1;j<graph::List->nvertices;++j)
 			if ((prob()<density)){
