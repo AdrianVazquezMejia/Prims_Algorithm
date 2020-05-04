@@ -5,6 +5,11 @@
  *      Author: adrian-estelio
  */
 #include <stddef.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <fstream>
 #ifndef HEADER_GRAPH_H_
 #define HEADER_GRAPH_H_
 
@@ -26,35 +31,44 @@ class graph{
 public:
 
 	graph(int n= 0, bool directed = false){
-		List= new AdjancencyList;
-		int i;
-		List->nvertices = n;
-		List->nedges = 0;
-		List->directed = directed;
-		List->degree = new int[n];
-		List->edges = new edgenode*[n];
-		for (i=0; i<n; i++)
-			List->degree[i] = 0;
-		for (i=0; i<n; i++)
-			List->edges[i] = NULL;
-		distance = new int[n];
-		prev = new int[n];
-		path = new int[n];
-		pathSize = 0;
-		hops = 0;
+		init(n, directed);
+		std::cout<<"constructed"<<std::endl;
 	};
+	graph(std::string route){
+		initFromFile(route);
+		std::cout<<"File Contructor"<<std::endl;
+	}
+	void initFromFile(std::string route);
 	void init(int n = 0, bool directed = false);
 	void print_graph(void);
 	int  *getPath(int u, int w );
 	int getSize(int w);
 	void MonteCarlo(double density, int initialCost, int Range);
 	int *ShortestPath(int start);
-
-
+	AdjancencyList AdjancencyL(){
+		return *List;
+	};
+	int *getDistance (){
+		return distance;
+	};
+	int *getPrev(){
+		return prev;
+	};
+	void primMST();
+	void insert_edge(int x, int y, int weight,bool directed);
 	~graph(){
 		release();
+		std::cout<<"Destructed"<<std::endl;
 	}
+	void release(void){
+		delete [] List->degree;
+		delete [] List->edges;
+		delete List;
+		delete [] distance;
+		delete [] prev ;
+		delete [] path;
 
+	}
 private:
 	AdjancencyList *List;
 	int *distance;
@@ -66,14 +80,7 @@ private:
 	void find_path(int start, int end);
 	void putIn(int p);
 	int genCost(int initialCost,int  Range);
-	void release(void){
-		delete [] List->degree;
-		delete [] List->edges;
-		delete List;
-		delete [] distance;
-		delete [] prev ;
-		delete [] path;
-	}
+
 };
 
 
