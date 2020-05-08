@@ -2,7 +2,7 @@
  * graph.h
  *
  *  Created on: May 3, 2020
- *      Author: adrian-estelio
+ *      Author: Adrian Vazquez
  */
 
 #include "../header/graph.h"
