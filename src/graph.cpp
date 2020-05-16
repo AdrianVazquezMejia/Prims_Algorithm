@@ -146,7 +146,8 @@ void graph::primMST(){
 			if((distance[w] > weight)&&(intree[w]==false)){
 				distance[w] = weight;
 				prev[w] = v;
-				q.insert(w,distance[w]);
+				if (!intree[w])
+					q.insert(w,distance[w]);
 			}
 			p = p->next;
 		}
